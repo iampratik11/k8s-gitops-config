@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+
+metadata:
+  name: microservices
+  namespace: argocd
+
+spec:
+  description: Microservices GitOps Project
+
+  sourceRepos:
+    - https://github.com/iampratik11/k8s-gitops-platform.git
+
+  destinations:
+    - namespace: staging
+      server: https://kubernetes.default.svc
+
+    - namespace: production
+      server: https://kubernetes.default.svc
+
+  clusterResourceWhitelist:
+    - group: ""
+      kind: Namespace
+
+  namespaceResourceWhitelist:
+    - group: "*"
+      kind: "*"
